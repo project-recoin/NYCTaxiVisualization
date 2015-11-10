@@ -35,3 +35,4 @@ node_modules
 
 data
 .idea
+db_gen/ouputData.json
