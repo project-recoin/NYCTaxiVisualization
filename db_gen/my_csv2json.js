@@ -24,7 +24,7 @@ if(output)
 
 var Converter = require("csvtojson").Converter;
 //Shorter header to save space
-var converter = new Converter({headers:["Med", "PT", "DT", "NP", "Dis", "Path"]});
+var converter = new Converter({headers:["Med", "PT", "DT", "NP", "Dis", "Path"], constrcutResult:false});
 
 var parserMgr=require("csvtojson").parserMgr;
 
@@ -47,7 +47,6 @@ parserMgr.addParser("myParserName",/Path/,function (params){
         }
 
     }
-    console.log(coorPairArray);
     params.resultRow['Path']=JSON.stringify(coorPairArray);
 });
 
