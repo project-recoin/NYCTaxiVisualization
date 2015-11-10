@@ -3,11 +3,11 @@
  *
  * Use this to process csv records of NYCTaxi data and store them into JSON files
  * usage:
- * node my_csv2json.js [filename]
+ * node my_csv2json.js [input_filename] [output_filename]
  */
 
 var fileName = "./sampleInputShort.csv";
-var outputName = "./outputData.json"
+var outputName = "./outputData.json";
 
 //Getting user command line input of file name if user provided any
 var input = process.argv[2];
@@ -35,7 +35,6 @@ parserMgr.addParser("myParserName",/Path/,function (params){
     var coorPairArray = [];
     for(var i = 1; i < coorArray.length+1; i++)
     {
-
         if(i%2 === 1)
         {
             coorPair.lat = coorArray[i-1];
@@ -48,7 +47,7 @@ parserMgr.addParser("myParserName",/Path/,function (params){
         }
 
     }
-
+    console.log(coorPairArray);
     params.resultRow['Path']=JSON.stringify(coorPairArray);
 });
 
