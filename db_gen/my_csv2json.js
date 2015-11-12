@@ -1,12 +1,15 @@
 /**
  * Created by zd on 11/9/15.
  *
- * Use this to process csv records of NYCTaxi data and store them into JSON files
+ * DO NOT USE THIS FILE
+ * Use csv2json_c.js instead
  * usage:
  * node my_csv2json.js [input_filename] [output_filename]
  */
 
 var fileName = "./sampleInputShort.csv";
+//var fileName = "/Users/zd/Study/year3/Cascade/trips_lookedup_openroute_seg_1x";
+
 var outputName = "./outputData.json";
 
 //Getting user command line input of file name if user provided any
@@ -24,8 +27,8 @@ if(output)
 
 var Converter = require("csvtojson").Converter;
 //Shorter header to save space
-var converter = new Converter({headers:["Med", "PT", "DT", "NP", "Dis", "Path"], constrcutResult:false});
-/*
+var converter = new Converter({headers:["Med", "PT", "DT", "NP", "Dis", "Path"], constrcutResult:false, checkType:true});
+
 var parserMgr=require("csvtojson").parserMgr;
 
 //parse latlngList field data format to {Path : [{lat : 123, lng: 456}, ..., ...]}
@@ -50,14 +53,15 @@ parserMgr.addParser("myParserName",/Path/,function (params){
     }
     params.resultRow['Path']=JSON.stringify(coorPairArray);
 });
-*/
+
 //end_parsed will be emitted once parsing finished
 //Note: Only used when dealing with small csv files
+/*
 converter.on("end_parsed", function (jsonArray) {
     //console.log(jsonArray);
     console.log("Parse finished");
 });
-
+*/
 //read from file
 var readStream = require("fs").createReadStream(fileName);
 var writeStream=require("fs").createWriteStream(outputName);
