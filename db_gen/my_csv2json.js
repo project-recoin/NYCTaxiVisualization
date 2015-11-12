@@ -53,7 +53,7 @@ parserMgr.addParser("myParserName",/Path/,function (params){
 //end_parsed will be emitted once parsing finished
 //Note: Only used when dealing with small csv files
 converter.on("end_parsed", function (jsonArray) {
-    console.log(jsonArray);
+    //console.log(jsonArray);
     console.log("Parse finished");
 });
 
