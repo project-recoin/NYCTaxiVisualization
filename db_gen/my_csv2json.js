@@ -29,6 +29,7 @@ var converter = new Converter({headers:["Med", "PT", "DT", "NP", "Dis", "Path"],
 var parserMgr=require("csvtojson").parserMgr;
 
 //parse latlngList field data format to {Path : [{lat : 123, lng: 456}, ..., ...]}
+/*
 parserMgr.addParser("myParserName",/Path/,function (params){
     var coorArray = params.item.split(',');
     var coorPair = {lat : 0, lng : 0};
@@ -48,7 +49,7 @@ parserMgr.addParser("myParserName",/Path/,function (params){
 
     }
     params.resultRow['Path']=JSON.stringify(coorPairArray);
-});
+});*/
 
 //end_parsed will be emitted once parsing finished
 //Note: Only used when dealing with small csv files
