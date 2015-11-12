@@ -38,3 +38,15 @@ data
 db_gen/outputData.json
 
 db_gen/outputDataYa.json
+
+db_gen/generateDB.js
+
+db_gen/csv2json_cp.js
+
+db_gen/csv2json_test.js
+
+db_gen/csv2json_ya.js
+
+db_gen/outpuData.json
+
+db_gen/outputDataC.json

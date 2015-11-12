@@ -1,16 +1,17 @@
 /**
- * Created by zd on 11/9/15.
- *
- * DO NOT USE THIS FILE
- * Use csv2json_c.js instead
- * usage:
- * node my_csv2json.js [input_filename] [output_filename]
+ * Created by zd on 11/12/15.
+ *  Use this to process csv records of NYCTaxi data and store them into JSON files
+ *  usage:
+ *  node my_csv2json.js [input_filename] ([output_filename])
  */
+
+var parse = require('csv').parse;
+var transform = require('csv').transform;
+var fs = require('fs');
 
 var fileName = "./sampleInputShort.csv";
 //var fileName = "/Users/zd/Study/year3/Cascade/trips_lookedup_openroute_seg_1x";
-
-var outputName = "./outputData.json";
+var outputName = "./outputDataC.json";
 
 //Getting user command line input of file name if user provided any
 var input = process.argv[2];
@@ -25,44 +26,47 @@ if(output)
     outputName = output;
 }
 
-var Converter = require("csvtojson").Converter;
-//Shorter header to save space
-var converter = new Converter({headers:["Med", "PT", "DT", "NP", "Dis", "Path"], constrcutResult:false, checkType:true});
+//headers are a little bit unreadable but this saves hard drive space.
+var header = ["Med", "PT", "DT", "NP", "Dis", "Path"]
 
-var parserMgr=require("csvtojson").parserMgr;
-
-//parse latlngList field data format to {Path : [{lat : 123, lng: 456}, ..., ...]}
-
-parserMgr.addParser("myParserName",/Path/,function (params){
-    var coorArray = params.item.split(',');
-    var coorPair = {lat : 0, lng : 0};
-    var coorPairArray = [];
-    for(var i = 1; i < coorArray.length+1; i++)
+var parser = parse({delimiter: ','});
+var count = 0;
+var transformer = transform(function(record, cb) {
+    if(count !== 0)
     {
-        if(i%2 === 1)
+        var entry = {};
+        //Format: {"Med":xxx, "PT":xxx...}
+        for(var i = 0; i < record.length; i++)
         {
-            coorPair.lat = coorArray[i-1];
-        }
-        else
-        {
-            coorPair.lng = coorArray[i-1];
-            coorPairArray.push(coorPair);
-            coorPair = {lat : 0, lng : 0};
+            entry[header[i]] = record[i];
         }
 
+        //Break Path and format:{"Pa}
+        var coorArray = entry['Path'].split(',');
+        var coorPair = {lat : 0, lng : 0};
+        var coorPairArray = [];
+        for(var i = 1; i < coorArray.length+1; i++)
+        {
+            if(i%2 === 1)
+            {
+                coorPair.lat = coorArray[i-1];
+            }
+            else
+            {
+                coorPair.lng = coorArray[i-1];
+                coorPairArray.push(coorPair);
+                coorPair = {lat : 0, lng : 0};
+            }
+        }
+        entry['Path'] = coorPairArray;
+        //console.log(entry);
+        cb(null, JSON.stringify(entry));
     }
-    params.resultRow['Path']=JSON.stringify(coorPairArray);
+    console.log(count);
+    count++;
 });
 
-//end_parsed will be emitted once parsing finished
-//Note: Only used when dealing with small csv files
-/*
-converter.on("end_parsed", function (jsonArray) {
-    //console.log(jsonArray);
-    console.log("Parse finished");
-});
-*/
-//read from file
-var readStream = require("fs").createReadStream(fileName);
-var writeStream=require("fs").createWriteStream(outputName);
-readStream.pipe(converter).pipe(writeStream);
+
+var write = fs.createWriteStream(outputName, {flags: 'w'});
+
+fs.createReadStream(fileName).pipe(parser).pipe(transformer).pipe(write);
