@@ -62,7 +62,7 @@ var transformer = transform(function(record, cb) {
         //console.log(entry);
         cb(null, JSON.stringify(entry));
     }
-    console.log(count);
+    //console.log(count);
     count++;
 });
 
