@@ -5,7 +5,8 @@
  * usage:
  * node nyc_csv2json.js [input_filename] [output_filename]
  */
-
+var csv = require('csvtojson');
+var fs = require('fs');
 
 
 var nyc_csv2json = {
@@ -14,11 +15,11 @@ var nyc_csv2json = {
     outputName: "./outputData.json",
 
     resultedStream: function(){
-        var Converter = require("csvtojson").Converter;
+        var Converter = csv.Converter;
         //Shorter header to save space
         var converter = new Converter({headers:["Med", "PT", "DT", "NP", "Dis", "Path"], constructResult:false});
 
-        var parserMgr=require("csvtojson").parserMgr;
+        var parserMgr= csv.parserMgr;
 
         //parse latlngList field data format to {Path : [{lat : 123, lng: 456}, ..., ...]}
 
@@ -45,7 +46,7 @@ var nyc_csv2json = {
             count++;
             params.resultRow['Path']=JSON.stringify(coorPairArray);
         });
-        return require("fs").createReadStream(this.inputName).pipe(converter);
+        return fs.createReadStream(this.inputName).pipe(converter);
     },
 }
 
@@ -65,5 +66,5 @@ if(output)
     outputName = output;
 }
 
-var writeStream=require("fs").createWriteStream(nyc_csv2json.outputName);
+var writeStream=fs.createWriteStream(nyc_csv2json.outputName);
 nyc_csv2json.resultedStream().pipe(writeStream);
