@@ -1,5 +1,8 @@
 /**
  * Created by zd on 11/12/15.
+ *
+ * DO NOT USE THIS FILE
+ * User nyc_csv2json instead
  *  Use this to process csv records of NYCTaxi data and store them into JSON files
  *  usage:
  *  node my_csv2json.js [input_filename] ([output_filename])
