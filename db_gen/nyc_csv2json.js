@@ -1,6 +1,10 @@
 /**
  * Created by zd on 11/9/15.
  *
+ * NB: If you want to use this in command line, comment out the code after module.exports
+ * or write another script require this file and copy the commented code.
+ * Use generateDB is you just want to put data from csv into mongoDB.
+ *
  * Use this to process csv records of NYCTaxi data and store them into JSON files
  * usage:
  * node nyc_csv2json.js [input_filename] [output_filename]
@@ -54,6 +58,7 @@ module.exports = nyc_csv2json;
 
 
 //Getting user command line input of file name if user provided any
+/*
 var input = process.argv[2];
 if(input)
 {
@@ -68,3 +73,4 @@ if(output)
 
 var writeStream=fs.createWriteStream(nyc_csv2json.outputName);
 nyc_csv2json.resultedStream().pipe(writeStream);
+    */
