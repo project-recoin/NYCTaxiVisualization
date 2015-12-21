@@ -1,0 +1,22 @@
+extends layout
+
+block content
+   style.
+      body {
+         text-align: center;
+      }
+      path {
+         stroke: steelblue;
+         stroke-width: 2;
+         fill: none;
+      }
+      .axis path,
+      .axis line {
+         fill: none;
+         stroke: grey;
+         stroke-width: 1;
+         shape-rendering: crispEdges;
+      }
+   #timeseries
+   script(src='TripOverview/timeSeries.js')
+

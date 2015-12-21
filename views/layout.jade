@@ -2,6 +2,121 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    // start: Mobile Specific
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    // end: Mobile Specific
+    // start: CSS
+    link#bootstrap-style(href='css/bootstrap.min.css', rel='stylesheet')
+    link(href='css/bootstrap-responsive.min.css', rel='stylesheet')
+    link#base-style(href='css/style.css', rel='stylesheet')
+    link#base-style-responsive(href='css/style-responsive.css', rel='stylesheet')
+    link(href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext', rel='stylesheet', type='text/css')
+    // end: CSS
+    // The HTML5 shim, for IE6-8 support of HTML5 elements
+    //if lt IE 9
+      script(src='http://html5shim.googlecode.com/svn/trunk/html5.js')
+      link#ie-style(href='css/ie.css', rel='stylesheet')
+    //if IE 9
+      link#ie9style(href='css/ie9.css', rel='stylesheet')
+    // start: Favicon
+    link(rel='shortcut icon', href='img/favicon.ico')
+    script(src='js/jquery-1.9.1.min.js')
+    // end: Favicon
   body
-    block content
+    .navbar
+      .navbar-inner
+        .container-fluid
+          a.brand(href='/')
+            span NYCTaxi
+    .container-fluid-full
+      .row-fluid
+        // start: Main Menu
+        #sidebar-left.span2
+          .nav-collapse.sidebar-nav
+            ul.nav.nav-tabs.nav-stacked.main-menu
+              li
+                a(href='/')
+                  i.icon-bar-chart
+                  span.hidden-tablet  Dashboard
+              li
+                a(href='/helloworld')
+                  i.icon-envelope
+                  span.hidden-tablet  Helloworld
+              li
+                a(href='/userlist')
+                  i.icon-tasks
+                  span.hidden-tablet  Userlist
+              li
+                a(href='form.html')
+                  i.icon-edit
+                  span.hidden-tablet  Forms
+              li
+                a(href='chart.html')
+                  i.icon-list-alt
+                  span.hidden-tablet  Charts
+              li
+                a(href='typography.html')
+                  i.icon-font
+                  span.hidden-tablet  Typography
+              li
+                a(href='gallery.html')
+                  i.icon-picture
+                  span.hidden-tablet  Gallery
+              li
+                a(href='/overview')
+                  i.icon-align-justify
+                  span.hidden-tablet  Overview
+        // end: Main Menu
+        noscript
+          .alert.alert-block.span10
+            h4.alert-heading Warning!
+            p
+              | You need to have
+              a(href='http://en.wikipedia.org/wiki/JavaScript', target='_blank') JavaScript
+              |  enabled to use this site.
+        // start: Content
+        #content.span10
+          ul.breadcrumb
+            li
+              i.icon-home
+              a(href='/') Home
+              i.icon-angle-right
+            li
+              a(href='/')= title
+          .row-fluid
+            block content
+            .clearfix
+
+    // start: JavaScript
+
+    script(src='js/jquery-migrate-1.0.0.min.js')
+    script(src='js/jquery-ui-1.10.0.custom.min.js')
+    script(src='js/jquery.ui.touch-punch.js')
+    script(src='js/modernizr.js')
+    script(src='js/bootstrap.min.js')
+    script(src='js/jquery.cookie.js')
+    script(src='js/fullcalendar.min.js')
+    script(src='js/jquery.dataTables.min.js')
+    script(src='js/excanvas.js')
+    script(src='js/jquery.flot.js')
+    script(src='js/jquery.flot.pie.js')
+    script(src='js/jquery.flot.stack.js')
+    script(src='js/jquery.flot.resize.min.js')
+    script(src='js/jquery.chosen.min.js')
+    script(src='js/jquery.uniform.min.js')
+    script(src='js/jquery.cleditor.min.js')
+    script(src='js/jquery.noty.js')
+    script(src='js/jquery.elfinder.min.js')
+    script(src='js/jquery.raty.min.js')
+    script(src='js/jquery.iphone.toggle.js')
+    script(src='js/jquery.uploadify-3.1.min.js')
+    script(src='js/jquery.gritter.min.js')
+    script(src='js/jquery.imagesloaded.js')
+    script(src='js/jquery.masonry.min.js')
+    script(src='js/jquery.knob.modified.js')
+    script(src='js/jquery.sparkline.min.js')
+    script(src='js/counter.js')
+    script(src='js/retina.js')
+    script(src='js/custom.js')
+    // end: JavaScript
+

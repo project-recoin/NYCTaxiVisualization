@@ -3,6 +3,8 @@ block content
     h1.
         User List
     ul
-        each user, i in userlist
+        each journey, i in journeylist
             li
-                a(href="mailto:#{user.email}")= user.username
+               p.
+                #{i} #{journey.Med}
+
